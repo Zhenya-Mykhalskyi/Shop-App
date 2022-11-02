@@ -14,9 +14,19 @@ class OrderItem extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            title: Text('\$${order.amount}'),
-            subtitle:
-                Text(DateFormat('dd MM yyyy hh:mm').format(order.dateTime)),
+            title: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: Text(
+                '\$${order.amount}',
+                style: TextStyle(
+                    fontSize: 16,
+                    backgroundColor: Theme.of(context).backgroundColor),
+              ),
+            ),
+            subtitle: Text(
+              DateFormat('dd/MM/yyyy   hh:mm').format(order.dateTime),
+              style: const TextStyle(fontSize: 12),
+            ),
             trailing: IconButton(
               icon: const Icon(Icons.expand_more),
               onPressed: () {},
