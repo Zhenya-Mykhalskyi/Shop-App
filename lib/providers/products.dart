@@ -37,6 +37,22 @@ class Products with ChangeNotifier {
       imageUrl:
           'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
     ),
+    Product(
+      id: 'p5',
+      title: 'A Car',
+      description: 'Prepare any meal you want.',
+      price: 49999.99,
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
+    ),
+    Product(
+      id: 'p6',
+      title: 'An Apple',
+      description: 'Prepare any meal you want.',
+      price: 49.99,
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
+    ),
   ];
 
   var _showFavoritesOnly = false;
