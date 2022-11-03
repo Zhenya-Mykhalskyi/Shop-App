@@ -46,28 +46,30 @@ class _OrderItemState extends State<OrderItem> {
           ),
           if (_expanded)
             Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 15),
-                height: min(widget.order.products.length * 20.0 + 25, 100),
-                child: ListView(
-                  children: widget.order.products
-                      .map((prod) => Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                prod.title,
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                '\$${prod.quantity} x \$${prod.price}',
-                                style: const TextStyle(
-                                    color: Colors.grey, fontSize: 18),
-                              )
-                            ],
-                          ))
-                      .toList(),
-                )),
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 15),
+              height: min(widget.order.products.length * 20.0 + 25, 100),
+              child: ListView(
+                children: widget.order.products
+                    .map(
+                      (prod) => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            prod.title,
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            '\$${prod.quantity} x \$${prod.price}',
+                            style: const TextStyle(
+                                color: Colors.grey, fontSize: 18),
+                          ),
+                        ],
+                      ),
+                    )
+                    .toList(),
+              ),
+            ),
         ],
       ),
     );
