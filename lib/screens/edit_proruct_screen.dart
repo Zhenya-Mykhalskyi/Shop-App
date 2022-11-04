@@ -41,11 +41,22 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   void _updateImageUrl() {
     if (!_imageUrlFocusNode.hasFocus) {
+      if ((!_imageUrlController.text.startsWith('http') &&
+              !_imageUrlController.text.startsWith('https')) ||
+          (!_imageUrlController.text.endsWith('.png') &&
+              !_imageUrlController.text.endsWith('.jpg') &&
+              !_imageUrlController.text.endsWith('.jpeg'))) {
+        return;
+      }
       setState(() {});
     }
   }
 
   void _saveForm() {
+    final isValid = _form.currentState.validate();
+    if (!isValid) {
+      return;
+    }
     _form.currentState.save();
     print(_editedProduct.id);
     print(_editedProduct.title);
@@ -107,6 +118,21 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           imageUrl: value,
                         );
                       },
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter aт image URL.';
+                        }
+                        if (!value.startsWith('http') ||
+                            !value.startsWith('https')) {
+                          return 'Image URL must started with http or https.';
+                        }
+                        if (!value.endsWith('.png') ||
+                            !value.endsWith('.jpg') ||
+                            !value.endsWith('.jpeg')) {
+                          return 'Image URl must have .jpeg, .png, .jpg extension';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                 ],
@@ -126,6 +152,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     imageUrl: _editedProduct.imageUrl,
                   );
                 },
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter a title of the product.';
+                  }
+                  return null;
+                },
               ),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Description'),
@@ -141,6 +173,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     imageUrl: _editedProduct.imageUrl,
                   );
                 },
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter a description.';
+                  }
+                  if (value.length < 20) {
+                    return 'Should be at least 20 characters long.';
+                  }
+                  return null;
+                },
               ),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Price'),
@@ -155,6 +196,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     description: _editedProduct.description,
                     imageUrl: _editedProduct.imageUrl,
                   );
+                },
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter a price.';
+                  }
+                  if (double.tryParse(value) == null) {
+                    return 'Please enter a valid number.';
+                  }
+                  if (double.parse(value) <= 0) {
+                    return 'Rlease enter a number greater than zero.';
+                  }
+                  return null;
                 },
               ),
             ],
