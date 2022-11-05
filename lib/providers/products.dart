@@ -28,13 +28,6 @@ class Products with ChangeNotifier {
     ),
     Product(
       id: 'p4',
-      title: 'Mango',
-      description: '1 kg of delicious mango.',
-      price: 4.99,
-      imageUrl: 'https://nashaplaneta.net/fruits/images/mango.jpg',
-    ),
-    Product(
-      id: 'p5',
       title: 'Avocado',
       description: '1 kilo of delicious avocado.',
       price: 2.99,
@@ -42,21 +35,21 @@ class Products with ChangeNotifier {
           'https://cdn.shopify.com/s/files/1/2019/9113/collections/Avocado.jpg',
     ),
     Product(
-      id: 'p6',
+      id: 'p5',
       title: 'Pineapple Guava',
       description: '1 kg of delicious pineapple Guava.',
       price: 18.99,
       imageUrl: 'https://nashaplaneta.net/fruits/images/feihoa.jpg',
     ),
     Product(
-      id: 'p7',
+      id: 'p6',
       title: 'Dragon fruit',
       description: '1 kg of delicious dragon fruit.',
       price: 12.99,
       imageUrl: 'https://nashaplaneta.net/fruits/images/dragon_fruit.jpg',
     ),
     Product(
-      id: 'p8',
+      id: 'p7',
       title: 'Carambola',
       description: ' 1 kg of delicious carambola',
       price: 15.49,
@@ -112,5 +105,10 @@ class Products with ChangeNotifier {
     } else {
       print('...');
     }
+  }
+
+  void deleteProduct(String id) {
+    _items.removeWhere((prod) => prod.id == id);
+    notifyListeners();
   }
 }
