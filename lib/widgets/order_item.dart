@@ -6,7 +6,7 @@ import '../providers/ordrers.dart' as ord;
 
 class OrderItem extends StatefulWidget {
   final ord.OrderItem order;
-  OrderItem(this.order);
+  const OrderItem(this.order, {Key key}) : super(key: key);
 
   @override
   State<OrderItem> createState() => _OrderItemState();
@@ -28,7 +28,7 @@ class _OrderItemState extends State<OrderItem> {
                 '\$${widget.order.amount.toStringAsFixed(2)}',
                 style: TextStyle(
                     fontSize: 16,
-                    backgroundColor: Theme.of(context).backgroundColor),
+                    backgroundColor: Theme.of(context).colorScheme.secondary),
               ),
             ),
             subtitle: Text(

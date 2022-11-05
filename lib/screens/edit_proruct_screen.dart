@@ -8,6 +8,8 @@ class EditProductScreen extends StatefulWidget {
   //Данними управляємо тільки в цьому віджеті
 
   static const routeName = '/edit-product';
+
+  const EditProductScreen({Key key}) : super(key: key);
   @override
   State<EditProductScreen> createState() => _EditProductScreenState();
 }
@@ -94,8 +96,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
     if (_editedProduct.id != null) {
       Provider.of<Products>(context, listen: false)
           .updateProduct(_editedProduct.id, _editedProduct);
-    } else
+    } else {
       Provider.of<Products>(context, listen: false).addProduct(_editedProduct);
+    }
 
     Navigator.of(context).pop();
   }
@@ -129,7 +132,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       border: Border.all(width: 1, color: Colors.grey),
                     ),
                     child: _imageUrlController.text.isEmpty
-                        ? Text('*Enter a URL*')
+                        ? const Text('*Enter a URL*')
                         : FittedBox(
                             child: Image.network(
                               _imageUrlController.text,

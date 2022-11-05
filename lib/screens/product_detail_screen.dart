@@ -9,6 +9,8 @@ class ProductDetailScreen extends StatelessWidget {
 
   static const routeName = 'product-detail';
 
+  const ProductDetailScreen({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final productId = ModalRoute.of(context).settings.arguments as String;
@@ -21,7 +23,7 @@ class ProductDetailScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               width: double.infinity,
               height: 300,
               child: Image.network(loadedProduct.imageUrl),

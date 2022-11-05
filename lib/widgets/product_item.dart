@@ -6,6 +6,8 @@ import '../providers/product.dart';
 import '../providers/cart.dart';
 
 class ProductItem extends StatelessWidget {
+  const ProductItem({Key key}) : super(key: key);
+
   // final String id;
   // final String title;
   // final String imageUrl;
@@ -41,7 +43,7 @@ class ProductItem extends StatelessWidget {
               },
               icon: Icon(
                 product.isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
@@ -52,7 +54,7 @@ class ProductItem extends StatelessWidget {
           trailing: IconButton(
             icon: Icon(
               Icons.shopping_cart,
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).colorScheme.secondary,
             ),
             onPressed: () {
               cart.addItem(product.id, product.price, product.title);

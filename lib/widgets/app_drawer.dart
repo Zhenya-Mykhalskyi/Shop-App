@@ -4,6 +4,8 @@ import 'package:shop_app/screens/user_products_screen.dart';
 import '../screens/orders_screen.dart';
 
 class AppDrawer extends StatelessWidget {
+  const AppDrawer({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(

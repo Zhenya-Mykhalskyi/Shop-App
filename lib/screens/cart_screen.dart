@@ -29,17 +29,21 @@ class CartScreen extends StatelessWidget {
                   const Spacer(),
                   Chip(
                     label: Text('\$${cart.totalAmount.toStringAsFixed(2)}'),
-                    backgroundColor: Theme.of(context).primaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                   ),
                   TextButton(
-                      onPressed: () {
-                        Provider.of<Orders>(context, listen: false).addOrder(
-                          cart.items.values.toList(),
-                          cart.totalAmount,
-                        );
-                        cart.clear();
-                      },
-                      child: const Text('Order Now'))
+                    onPressed: () {
+                      Provider.of<Orders>(context, listen: false).addOrder(
+                        cart.items.values.toList(),
+                        cart.totalAmount,
+                      );
+                      cart.clear();
+                    },
+                    child: Text('Order Now',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.secondary)),
+                  )
                 ],
               ),
             ),
