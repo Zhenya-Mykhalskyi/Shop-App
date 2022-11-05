@@ -60,7 +60,7 @@ class _OrderItemState extends State<OrderItem> {
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            '\$${prod.quantity} x \$${prod.price}',
+                            '${prod.quantity} kg  x  \$${prod.price}',
                             style: const TextStyle(
                                 color: Colors.grey, fontSize: 18),
                           ),

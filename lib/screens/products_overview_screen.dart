@@ -24,7 +24,10 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('VortexShop'),
+        title: const Text(
+          'Exotic Fruits Shop',
+          style: TextStyle(fontFamily: 'Anton'),
+        ),
         actions: [
           PopupMenuButton(
             onSelected: (FilterOptions selectedValue) {
