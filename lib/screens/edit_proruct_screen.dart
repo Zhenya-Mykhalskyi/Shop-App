@@ -38,16 +38,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
     _imageUrlFocusNode.dispose();
     super.dispose();
   }
+  // http://grandtour.tv/uploads/posts/2021-11/1637928297_snimok.jpg
 
   void _updateImageUrl() {
     if (!_imageUrlFocusNode.hasFocus) {
-      if ((!_imageUrlController.text.startsWith('http') &&
-              !_imageUrlController.text.startsWith('https')) ||
-          (!_imageUrlController.text.endsWith('.png') &&
-              !_imageUrlController.text.endsWith('.jpg') &&
-              !_imageUrlController.text.endsWith('.jpeg'))) {
-        return;
-      }
+      // if ((!_imageUrlController.text.startsWith('http') &&
+      //         !_imageUrlController.text.startsWith('https')) ||
+      //     (!_imageUrlController.text.endsWith('.png') &&
+      //         !_imageUrlController.text.endsWith('.jpg') &&
+      //         !_imageUrlController.text.endsWith('.jpeg'))) {
+      //   return;
+      // }
       setState(() {});
     }
   }
@@ -94,7 +95,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       border: Border.all(width: 1, color: Colors.grey),
                     ),
                     child: _imageUrlController.text.isEmpty
-                        ? const Text('Enter a URL')
+                        ? Text('*Enter a URL*')
                         : FittedBox(
                             child: Image.network(
                               _imageUrlController.text,
@@ -120,14 +121,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return 'Please enter aт image URL.';
+                          return 'Please enter an image URL.';
                         }
-                        if (!value.startsWith('http') ||
+                        if (!value.startsWith('http') &&
                             !value.startsWith('https')) {
                           return 'Image URL must started with http or https.';
                         }
-                        if (!value.endsWith('.png') ||
-                            !value.endsWith('.jpg') ||
+                        if (!value.endsWith('.png') &&
+                            !value.endsWith('.jpg') &&
                             !value.endsWith('.jpeg')) {
                           return 'Image URl must have .jpeg, .png, .jpg extension';
                         }
