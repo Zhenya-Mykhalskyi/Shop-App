@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../providers/product.dart';
+import '../providers/products.dart';
 
 class EditProductScreen extends StatefulWidget {
   //Данними управляємо тільки в цьому віджеті
@@ -54,16 +56,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   void _saveForm() {
-    final isValid = _form.currentState.validate();
+    final isValid = _form.currentState
+        .validate(); //викликає всі валідатори та вертає значення true, якщо всі валідатори return null (всі дані пройшли провірку)
     if (!isValid) {
-      return;
+      return; // пририває виконання функії, код нище не буде виконуватись
     }
     _form.currentState.save();
-    print(_editedProduct.id);
-    print(_editedProduct.title);
-    print(_editedProduct.description);
-    print(_editedProduct.imageUrl);
-    print(_editedProduct.price);
+    Provider.of<Products>(context, listen: false).addProduct(_editedProduct);
+    Navigator.of(context).pop();
   }
 
   @override
