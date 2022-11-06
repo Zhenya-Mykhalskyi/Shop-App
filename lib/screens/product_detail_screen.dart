@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../widgets/appBar_backgroung.dart';
 import '../providers/products.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -18,6 +20,7 @@ class ProductDetailScreen extends StatelessWidget {
         Provider.of<Products>(context, listen: false).findById(productId);
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: const AppBarBackground(),
         title: Text(loadedProduct.title),
       ),
       body: SingleChildScrollView(

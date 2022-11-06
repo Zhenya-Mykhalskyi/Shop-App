@@ -23,11 +23,11 @@ class Badge extends StatelessWidget {
           top: 8,
           child: Container(
             padding: const EdgeInsets.all(2.0),
-            // color: Theme.of(context).accentColor,
+            // color: Theme.of(context).colorScheme.error,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               color: color ??
-                  Theme.of(context).colorScheme.secondary, //color != null
+                  const Color.fromARGB(255, 212, 212, 212), //color != null
             ),
             constraints: const BoxConstraints(
               minWidth: 16,
@@ -38,6 +38,7 @@ class Badge extends StatelessWidget {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 10,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),

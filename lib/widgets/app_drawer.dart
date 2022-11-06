@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/screens/user_products_screen.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 
+import '../screens/user_products_screen.dart';
 import '../screens/orders_screen.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -12,7 +13,18 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: [
           AppBar(
-            title: const Text('Hello Friend!'),
+            backgroundColor: Colors.black,
+            title: GradientText(
+              'Exotic Fruits Shop',
+              style: const TextStyle(
+                fontFamily: 'Anton',
+              ),
+              colors: const [
+                Color.fromARGB(255, 61, 243, 67),
+                Color.fromARGB(255, 25, 205, 106),
+                Color.fromARGB(255, 110, 215, 114),
+              ],
+            ),
             automaticallyImplyLeading: false,
           ),
           const Divider(),

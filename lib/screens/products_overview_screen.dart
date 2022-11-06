@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/appBar_backgroung.dart';
 import '../widgets/products_grid.dart';
 import '../widgets/badge.dart';
 import '../providers/cart.dart';
@@ -28,9 +29,12 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: const AppBarBackground(),
         title: const Text(
           'Exotic Fruits Shop',
-          style: TextStyle(fontFamily: 'Anton'),
+          style: TextStyle(
+            fontFamily: 'Anton',
+          ),
         ),
         actions: [
           PopupMenuButton(

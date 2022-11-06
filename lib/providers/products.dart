@@ -29,7 +29,7 @@ class Products with ChangeNotifier {
     Product(
       id: 'p4',
       title: 'Avocado',
-      description: '1 kilo of delicious avocado.',
+      description: '1 kg of delicious avocado.',
       price: 2.99,
       imageUrl:
           'https://cdn.shopify.com/s/files/1/2019/9113/collections/Avocado.jpg',
