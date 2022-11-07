@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/appBar_backgroung.dart';
+import '../widgets/my_appbar.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/user_product_item.dart';
 import '../providers/products.dart';
@@ -15,17 +15,14 @@ class UserProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final productsData = Provider.of<Products>(context);
     return Scaffold(
-      appBar: AppBar(
-        flexibleSpace: const AppBarBackground(),
-        title: const Text('Your products'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(EditProductScreen.routeName);
-            },
-            icon: const Icon(Icons.add),
-          ),
-        ],
+      appBar: MyAppBar(
+        title: 'Your products',
+        actions: IconButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed(EditProductScreen.routeName);
+          },
+          icon: const Icon(Icons.add),
+        ),
       ),
       drawer: const AppDrawer(),
       body: Padding(

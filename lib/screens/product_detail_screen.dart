@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/appBar_backgroung.dart';
+import '../widgets/my_appbar.dart';
 import '../providers/products.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -19,9 +19,9 @@ class ProductDetailScreen extends StatelessWidget {
     final loadedProduct =
         Provider.of<Products>(context, listen: false).findById(productId);
     return Scaffold(
-      appBar: AppBar(
-        flexibleSpace: const AppBarBackground(),
-        title: Text(loadedProduct.title),
+      appBar: MyAppBar(
+        title: loadedProduct.title,
+        actions: Container(),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -34,7 +34,8 @@ class ProductDetailScreen extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               '\$${loadedProduct.price}',
-              style: const TextStyle(color: Colors.grey, fontSize: 20),
+              style: const TextStyle(
+                  color: Color.fromARGB(255, 82, 211, 2), fontSize: 20),
             ),
             const SizedBox(height: 10),
             Container(

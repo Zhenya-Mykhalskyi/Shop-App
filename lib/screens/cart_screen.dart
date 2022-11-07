@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/appBar_backgroung.dart';
+import '../widgets/my_appbar.dart';
 import '../providers/cart.dart' show Cart;
 import '../widgets/cart_item.dart';
 import '../providers/ordrers.dart';
@@ -14,9 +14,9 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
     return Scaffold(
-      appBar: AppBar(
-        flexibleSpace: const AppBarBackground(),
-        title: const Text('Your Cart'),
+      appBar: MyAppBar(
+        title: 'Your Cart',
+        actions: Container(),
       ),
       body: Column(
         children: [

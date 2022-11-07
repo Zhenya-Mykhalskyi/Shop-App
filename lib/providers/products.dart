@@ -17,7 +17,8 @@ class Products with ChangeNotifier {
       title: 'Papaya',
       description: '1 kg of delicious papaya.',
       price: 11.49,
-      imageUrl: 'https://nashaplaneta.net/fruits/images/papaya.jpg',
+      imageUrl:
+          'http://cdn.shopify.com/s/files/1/2971/2126/products/Papaya_c249393e-13b2-4993-b8a0-63ca212b9bca.jpg',
     ),
     Product(
       id: 'p3',
@@ -46,7 +47,8 @@ class Products with ChangeNotifier {
       title: 'Dragon fruit',
       description: '1 kg of delicious dragon fruit.',
       price: 12.99,
-      imageUrl: 'https://nashaplaneta.net/fruits/images/dragon_fruit.jpg',
+      imageUrl:
+          'https://cdn.shopify.com/s/files/1/0512/2542/8161/products/dragon-fruit-pitaya-white-exoticfruitscouk-988200_1024x1024@2x.jpg',
     ),
     Product(
       id: 'p7',
@@ -54,6 +56,38 @@ class Products with ChangeNotifier {
       description: ' 1 kg of delicious carambola',
       price: 15.49,
       imageUrl: 'https://nashaplaneta.net/fruits/images/star_fruit.jpg',
+    ),
+    Product(
+      id: 'p8',
+      title: 'Banana-Apple',
+      description: ' 1 kg of delicious banana-apple',
+      price: 14.49,
+      imageUrl:
+          'https://cdn.shopify.com/s/files/1/0512/2542/8161/products/banana-apple-manzano-exoticfruitscouk-905674_1024x1024@2x.jpg',
+    ),
+    Product(
+      id: 'p9',
+      title: 'Yellow-Pitahaya',
+      description: ' 1 kg of delicious yellow pitahaya',
+      price: 21.99,
+      imageUrl:
+          'https://cdn.shopify.com/s/files/1/0512/2542/8161/products/dragon-fruit-yellow-pitahaya-exoticfruitscouk-198694_1024x1024@2x.jpg',
+    ),
+    Product(
+      id: 'p10',
+      title: 'Jackfruit',
+      description: ' 1 kg of delicious jackfruit',
+      price: 23.99,
+      imageUrl:
+          'https://cdn.shopify.com/s/files/1/0512/2542/8161/products/jackfruit-exoticfruitscouk-417432_1024x1024@2x.jpg',
+    ),
+    Product(
+      id: 'p11',
+      title: 'Kiwi-Berry',
+      description: ' 1 kg of delicious kiwwi-berry',
+      price: 18.99,
+      imageUrl:
+          'https://cdn.shopify.com/s/files/1/0512/2542/8161/products/kiwi-berry-exoticfruitscouk-146243_1024x1024@2x.jpg',
     ),
   ];
 
