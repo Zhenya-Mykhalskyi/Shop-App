@@ -12,12 +12,18 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (AppBar(
-      title: Text(title,
-          style: const TextStyle(
-              fontFamily: 'Anton', color: Color.fromARGB(232, 255, 255, 255))),
+    return AppBar(
+      title: Text(
+        title,
+        style: const TextStyle(
+          fontFamily: 'Anton',
+          color: Color.fromARGB(232, 255, 255, 255),
+        ),
+      ),
       actions: [actions],
-      iconTheme: const IconThemeData(color: Color.fromARGB(255, 220, 220, 220)),
+      iconTheme: const IconThemeData(
+        color: Color.fromARGB(255, 220, 220, 220),
+      ),
       flexibleSpace: Stack(children: [
         Container(
           decoration: BoxDecoration(
@@ -36,17 +42,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ]),
-    ));
-// appBar: AppBar(
-//         flexibleSpace: const AppBarBackground(),
-//         title: const Text('Edit Product'),
-//         actions: [
-//           IconButton(
-//             onPressed: _saveForm,
-//             icon: const Icon(Icons.save),
-//           )
-//         ],
-//       ),
+    );
+
     // return Container(
     //   decoration: const BoxDecoration(
     //     gradient: LinearGradient(

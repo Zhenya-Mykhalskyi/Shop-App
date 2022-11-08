@@ -100,7 +100,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
     } else {
       Provider.of<Products>(context, listen: false).addProduct(_editedProduct);
     }
-
     Navigator.of(context).pop();
   }
 
