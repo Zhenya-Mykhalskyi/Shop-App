@@ -22,7 +22,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [actions],
       iconTheme: const IconThemeData(
-        color: Color.fromARGB(255, 220, 220, 220),
+        color: Color.fromARGB(232, 255, 255, 255),
       ),
       flexibleSpace: Stack(children: [
         Container(

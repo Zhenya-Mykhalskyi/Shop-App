@@ -88,7 +88,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     }
   }
 
-  void _saveForm() {
+  Future<void> _saveForm() async {
     final isValid = _form.currentState
         .validate(); //викликає всі валідатори та вертає значення true, якщо всі валідатори return null (всі дані пройшли провірку)
     if (!isValid) {
@@ -107,14 +107,33 @@ class _EditProductScreenState extends State<EditProductScreen> {
       });
       Navigator.of(context).pop();
     } else {
-      Provider.of<Products>(context, listen: false)
-          .addProduct(_editedProduct)
-          .then((_) {
+      try {
+        await Provider.of<Products>(context, listen: false)
+            .addProduct(_editedProduct);
+      } catch (error) {
+        print(error);
+        await showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('An error occurred!'),
+            content: const Text('Something went wrong.'),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Okay'),
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+              )
+            ],
+          ),
+        );
+      } finally {
+        //код, який виконується завжди в не залежності від await
         setState(() {
           _isLoading = false;
         });
         Navigator.of(context).pop();
-      });
+      }
     }
   }
 
@@ -239,8 +258,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         if (value.isEmpty) {
                           return 'Please enter a description.';
                         }
-                        if (value.length < 20) {
-                          return 'Should be at least 20 characters long.';
+                        if (value.length < 10) {
+                          return 'Should be at least 10 characters long.';
                         }
                         return null;
                       },
