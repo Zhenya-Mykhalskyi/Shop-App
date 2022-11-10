@@ -9,6 +9,7 @@ import '../widgets/badge.dart';
 import '../providers/cart.dart';
 import '../screens/cart_screen.dart';
 import '../widgets/app_drawer.dart';
+import '../providers/products.dart';
 
 enum FilterOptions {
   Favorites,
@@ -24,6 +25,27 @@ class ProductsOverviewScreen extends StatefulWidget {
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   var _showOnlyFavorites = false;
+  var _isInit = true;
+
+  @override
+  void initState() {
+    // Provider.of<Products>(context, listen: false).fetchAndSetProducts();
+    Future.delayed(Duration.zero).then((_) {
+      //future з затримкою, але виконується зразу, бо затримка нульова
+      Provider.of<Products>(context, listen: false).fetchAndSetProducts();
+    });
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    //запускається після повної ініціалізації віджета. Може запускатися декілька разів, а не один як initState
+    if (_isInit) {
+      Provider.of<Products>(context, listen: false).fetchAndSetProducts();
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
