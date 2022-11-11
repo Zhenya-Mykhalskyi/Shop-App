@@ -26,6 +26,7 @@ class ProductsOverviewScreen extends StatefulWidget {
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   var _showOnlyFavorites = false;
   var _isInit = true;
+  var _isLoading = false;
 
   @override
   void initState() {
@@ -41,7 +42,17 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   void didChangeDependencies() {
     //запускається після повної ініціалізації віджета. Може запускатися декілька разів, а не один як initState
     if (_isInit) {
-      Provider.of<Products>(context, listen: false).fetchAndSetProducts();
+      setState(() {
+        _isLoading = true;
+      });
+
+      Provider.of<Products>(context, listen: false)
+          .fetchAndSetProducts()
+          .then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -54,7 +65,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         title: 'Exotic Fruits Shop',
         // style: TextStyle(
         //     fontFamily: 'Anton', color: Color.fromARGB(232, 255, 255, 255)),
-
         actions: Row(
           children: [
             PopupMenuButton(
@@ -102,7 +112,11 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         ),
       ),
       drawer: const AppDrawer(),
-      body: ProductsGrid(_showOnlyFavorites),
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : ProductsGrid(_showOnlyFavorites),
     );
   }
 }
