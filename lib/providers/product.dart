@@ -30,7 +30,7 @@ class Product with ChangeNotifier {
     isFavorite = !isFavorite;
     notifyListeners();
     final url = Uri.parse(
-        'https://exotic-fruits-shop-default-rtdb.europe-west1.firebasedatabase.app/products/$id');
+        'https://exotic-fruits-shop-default-rtdb.europe-west1.firebasedatabase.app/products/$id.json');
     try {
       final responce = await http.patch(
         url,
