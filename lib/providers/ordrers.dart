@@ -19,10 +19,43 @@ class OrderItem {
 }
 
 class Orders with ChangeNotifier {
-  final List<OrderItem> _orders = [];
+  List<OrderItem> _orders = [];
 
   List<OrderItem> get orders {
     return [..._orders];
+  }
+
+  Future<void> fetchAndSetOrders() async {
+    final url = Uri.parse(
+        'https://exotic-fruits-shop-default-rtdb.europe-west1.firebasedatabase.app/orders.json');
+    final response = await http.get(url);
+    final List<OrderItem> loadedOrders = [];
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    if (extractedData == null) {
+      return;
+    }
+    extractedData.forEach((orderId, orderData) {
+      loadedOrders.add(
+        OrderItem(
+          id: orderId,
+          amount: orderData['amount'],
+          dateTime: DateTime.parse(orderData['dateTime']),
+          products: (orderData['products'] as List<dynamic>)
+              .map(
+                (item) => CartItem(
+                  id: item['id'],
+                  title: item['title'],
+                  price: item['price'],
+                  quantity: item['quantity'],
+                ),
+              )
+              .toList(),
+        ),
+      );
+    });
+    _orders =
+        loadedOrders.reversed.toList(); //спочатку буде показувати новий заказ
+    notifyListeners();
   }
 
   void addOrder(List<CartItem> cartProducts, double total) async {

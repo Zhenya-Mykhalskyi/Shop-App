@@ -46,6 +46,7 @@ class Product with ChangeNotifier {
       }
     } catch (error) {
       _setFavValue(oldStatus);
+      notifyListeners();
     }
   }
 }
