@@ -30,11 +30,10 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
 
   @override
   void initState() {
-    // Provider.of<Products>(context, listen: false).fetchAndSetProducts();
-    Future.delayed(Duration.zero).then((_) {
-      //future з затримкою, але виконується зразу, бо затримка нульова
-      Provider.of<Products>(context, listen: false).fetchAndSetProducts();
-    });
+    // Future.delayed(Duration.zero).then((_) {
+    //future з затримкою, але виконується зразу, бо затримка нульова
+    Provider.of<Products>(context, listen: false).fetchAndSetProducts();
+    // });
     super.initState();
   }
 
