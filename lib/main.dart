@@ -9,7 +9,8 @@ import '../screens/orders_screen.dart';
 import '../providers/ordrers.dart';
 import '../screens/user_products_screen.dart';
 import '../screens/edit_proruct_screen.dart';
-import 'package:shop_app/screens/auth_screen.dart';
+import '../screens/auth_screen.dart';
+import '../providers/auth.dart';
 
 void main() => runApp(const MyApp());
 
@@ -20,15 +21,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (ctx) => Products(),
-        ),
-        ChangeNotifierProvider(
-          create: (ctx) => Cart(),
-        ),
-        ChangeNotifierProvider(
-          create: (ctx) => Orders(),
-        ),
+        ChangeNotifierProvider(create: (ctx) => Auth()),
+        ChangeNotifierProvider(create: (ctx) => Products()),
+        ChangeNotifierProvider(create: (ctx) => Cart()),
+        ChangeNotifierProvider(create: (ctx) => Orders()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
