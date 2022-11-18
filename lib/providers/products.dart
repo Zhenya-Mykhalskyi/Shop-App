@@ -88,7 +88,7 @@ class Products with ChangeNotifier {
     Product(
       id: 'p11',
       title: 'Kiwi-Berry',
-      description: ' 1 kg of delicious kiwwi-berry',
+      description: ' 1 kg of delicious kiwi-berry',
       price: 18.99,
       imageUrl:
           'https://cdn.shopify.com/s/files/1/0512/2542/8161/products/kiwi-berry-exoticfruitscouk-146243_1024x1024@2x.jpg',
@@ -96,6 +96,8 @@ class Products with ChangeNotifier {
   ];
 
   // var _showFavoritesOnly = false;
+  final String authToken;
+  Products(this.authToken, this._items);
 
   List<Product> get items {
     // if (_showFavoritesOnly) {
@@ -124,7 +126,7 @@ class Products with ChangeNotifier {
 
   Future<void> fetchAndSetProducts() async {
     final url = Uri.parse(
-        'https://exotic-fruits-shop-default-rtdb.europe-west1.firebasedatabase.app/products.json');
+        'https://exotic-fruits-shop-default-rtdb.europe-west1.firebasedatabase.app/products.json?auth=$authToken');
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
