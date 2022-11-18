@@ -25,12 +25,12 @@ class Product with ChangeNotifier {
     notifyListeners();
   }
 
-  void toggleFavoriteStatus() async {
+  void toggleFavoriteStatus(String token) async {
     final oldStatus = isFavorite;
     isFavorite = !isFavorite;
     notifyListeners();
     final url = Uri.parse(
-        'https://exotic-fruits-shop-default-rtdb.europe-west1.firebasedatabase.app/products/$id.json');
+        'https://exotic-fruits-shop-default-rtdb.europe-west1.firebasedatabase.app/products/$id.json?auth=$token');
     try {
       final responce = await http.patch(
         url,

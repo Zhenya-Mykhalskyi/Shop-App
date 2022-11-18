@@ -1,3 +1,5 @@
+// ignore_for_file: missing_required_param
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/screens/products_overview_screen.dart';
@@ -28,7 +30,9 @@ class MyApp extends StatelessWidget {
               auth.token, previousProduts == null ? [] : previousProduts.items),
         ), //proxy для того, щоб управляти токеном з файлу Auth. При зміні Auth буде створений новий об'єкт Products
         ChangeNotifierProvider(create: (ctx) => Cart()),
-        ChangeNotifierProvider(create: (ctx) => Orders()),
+        ChangeNotifierProxyProvider<Auth, Orders>(
+            update: (ctx, auth, previousOrders) => Orders(auth.token,
+                previousOrders == null ? [] : previousOrders.orders)),
       ],
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
