@@ -25,19 +25,17 @@ class Product with ChangeNotifier {
     notifyListeners();
   }
 
-  void toggleFavoriteStatus(String token) async {
+  void toggleFavoriteStatus(String token, String userId) async {
     final oldStatus = isFavorite;
     isFavorite = !isFavorite;
     notifyListeners();
     final url = Uri.parse(
-        'https://exotic-fruits-shop-default-rtdb.europe-west1.firebasedatabase.app/products/$id.json?auth=$token');
+        'https://exotic-fruits-shop-default-rtdb.europe-west1.firebasedatabase.app/userFavorites/$userId/$id.json?auth=$token');
     try {
-      final responce = await http.patch(
+      final responce = await http.put(
         url,
         body: json.encode(
-          {
-            'isFavorite': isFavorite,
-          },
+          isFavorite,
         ),
       );
       if (responce.statusCode >= 400) {
