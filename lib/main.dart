@@ -34,7 +34,9 @@ class MyApp extends StatelessWidget {
         ), //proxy для того, щоб управляти токеном з файлу Auth. При зміні Auth буде створений новий об'єкт Products
         ChangeNotifierProvider(create: (ctx) => Cart()),
         ChangeNotifierProxyProvider<Auth, Orders>(
-            update: (ctx, auth, previousOrders) => Orders(auth.token,
+            update: (ctx, auth, previousOrders) => Orders(
+                auth.token,
+                auth.userId,
                 previousOrders == null ? [] : previousOrders.orders)),
       ],
       child: Consumer<Auth>(
