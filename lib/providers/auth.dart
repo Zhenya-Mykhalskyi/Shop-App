@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/http_exception.dart';
 
@@ -53,8 +54,17 @@ class Auth with ChangeNotifier {
       _userId = responseData['localId'];
       _expiryDate = DateTime.now()
           .add(Duration(seconds: int.parse(responseData['expiresIn'])));
-      _autoLogout();
+      _autoLogout(); // з моменту авторизацції запускається відлік автовиходу
       notifyListeners();
+      final prefs = await SharedPreferences.getInstance();
+      final userData = json.encode(
+        {
+          'token': _token,
+          'userId': userId,
+          'expiryData': _expiryDate.toIso8601String(),
+        },
+      );
+      prefs.setString('userData', userData);
     } catch (error) {
       rethrow;
     }
@@ -68,20 +78,47 @@ class Auth with ChangeNotifier {
     return _authenticate(email, password, 'signInWithPassword');
   }
 
-  void logout() {
+  Future<bool> tryAutoLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (!prefs.containsKey('userData')) {
+      // якщо нема ключа userData в prefs, значить користувач ще не авторизовувався, і ми повертаємо false
+      return false;
+    }
+    final extractedUserData =
+        json.decode(prefs.getString('userData')) as Map<String, Object>;
+    final expiryDate = DateTime.parse(extractedUserData['expiryData']);
+
+    if (expiryDate.isBefore(DateTime.now())) {
+      // означає, що expiryDate в минулому, тобто недійсна
+      return false;
+    }
+    _token = extractedUserData['token'];
+    _userId = extractedUserData['userId'];
+    _expiryDate = expiryDate;
+    notifyListeners();
+    _autoLogout();
+    return true;
+  }
+
+  Future<void> logout() async {
     _token = null;
     _userId = null;
     _expiryDate = null;
     if (_authTimer != null) {
+      // на випадок, якщо користувач вийде через бічну панель
       _authTimer.cancel();
       _authTimer = null;
     }
     notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    // prefs.remove('userData');
+    prefs.clear();
+    //очистить всі дані додатку з Shared Preferences. Не використовувати, якщо потрібно зберегти деякі дані, які можуть знадобитися при виході з системи
   }
 
   void _autoLogout() {
     if (_authTimer != null) {
-      _authTimer.cancel();
+      _authTimer.cancel(); //якщо вже є таймер, то ми його скасовуємо
     }
     final timeToExpiry = _expiryDate.difference(DateTime.now()).inSeconds;
     _authTimer = Timer(Duration(seconds: timeToExpiry), logout);
