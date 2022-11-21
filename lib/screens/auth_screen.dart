@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -108,34 +109,40 @@ class _AuthCardState extends State<AuthCard>
   final _passwordController = TextEditingController();
   var containerHeight = 260;
   AnimationController _controller;
-  // Animation<Size> _heightAnimation;
+  Animation<Offset> _slideAnimation;
+  Animation<double> _opecityAnimation;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _controller = AnimationController(
-  //     vsync: this,
-  //     // аргумент, який спостерігає за конкретним віджетом, що відображається на екрані. Це оптимізує додаток
-  //     duration: const Duration(milliseconds: 300),
-  //   );
-  //   _heightAnimation = Tween<Size>(
-  //           begin: const Size(double.infinity, 260),
-  //           end: const Size(double.infinity, 320))
-  //       .animate(
-  //     CurvedAnimation(
-  //       parent: _controller,
-  //       curve: Curves.linear,
-  //     ),
-  //   );
-  //   // _heightAnimation.addListener(() =>
-  //   //     setState(() {})); //перезапуск методу зборки, щоб перемалювати екран
-  // }
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      // аргумент, який спостерігає за конкретним віджетом, що відображається на екрані. Це оптимізує додаток
+      duration: const Duration(milliseconds: 300),
+    );
+    _slideAnimation =
+        Tween<Offset>(begin: const Offset(0, -1), end: const Offset(0, 0))
+            .animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.linear,
+      ),
+    );
+    _opecityAnimation = Tween(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeIn,
+      ),
+    );
+    // _heightAnimation.addListener(() =>
+    //     setState(() {})); //перезапуск методу зборки, щоб перемалювати екран
+  }
 
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   _controller.dispose(); //to clear the listener
-  // }
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose(); //to clear the listener
+  }
 
   void _showErrorDialog(String message) {
     showDialog(
@@ -275,23 +282,38 @@ class _AuthCardState extends State<AuthCard>
                     _authData['password'] = value;
                   },
                 ),
-                if (_authMode == AuthMode.Signup)
-                  TextFormField(
-                    enabled: _authMode == AuthMode.Signup,
-                    decoration: const InputDecoration(
-                      labelText: 'Confirm Password',
-                      labelStyle: TextStyle(fontSize: 14, fontFamily: 'Lato'),
+                // if (_authMode == AuthMode.Signup)
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeIn,
+                  constraints: BoxConstraints(
+                      minHeight: _authMode == AuthMode.Signup ? 60 : 0,
+                      maxHeight: _authMode == AuthMode.Signup ? 120 : 0),
+                  //резервує місце
+                  child: FadeTransition(
+                    opacity: _opecityAnimation,
+                    child: SlideTransition(
+                      position: _slideAnimation,
+                      child: TextFormField(
+                        enabled: _authMode == AuthMode.Signup,
+                        decoration: const InputDecoration(
+                          labelText: 'Confirm Password',
+                          labelStyle:
+                              TextStyle(fontSize: 14, fontFamily: 'Lato'),
+                        ),
+                        obscureText: true, //скривати пароль
+                        validator: _authMode == AuthMode.Signup
+                            ? (value) {
+                                if (value != _passwordController.text) {
+                                  return 'Passwords do not match!';
+                                }
+                                return null;
+                              }
+                            : null,
+                      ),
                     ),
-                    obscureText: true, //скривати пароль
-                    validator: _authMode == AuthMode.Signup
-                        ? (value) {
-                            if (value != _passwordController.text) {
-                              return 'Passwords do not match!';
-                            }
-                            return null;
-                          }
-                        : null,
                   ),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
