@@ -17,37 +17,45 @@ class _OrderItemState extends State<OrderItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(10),
-      child: Column(
-        children: [
-          ListTile(
-            title: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2),
-              child: Text(
-                '\$${widget.order.amount.toStringAsFixed(2)}',
-                style: TextStyle(
-                    fontSize: 16,
-                    backgroundColor: Theme.of(context).colorScheme.secondary),
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      // curve: Curves.easeIn,
+      height:
+          _expanded ? min(widget.order.products.length * 20.0 + 115, 200) : 95,
+      child: Card(
+        margin: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            ListTile(
+              title: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2),
+                child: Text(
+                  '\$${widget.order.amount.toStringAsFixed(2)}',
+                  style: TextStyle(
+                      fontSize: 16,
+                      backgroundColor:
+                          Theme.of(context).colorScheme.background),
+                ),
+              ),
+              subtitle: Text(
+                DateFormat('dd/MM/yyyy   hh:mm').format(widget.order.dateTime),
+                style: const TextStyle(fontSize: 12),
+              ),
+              trailing: IconButton(
+                icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more),
+                onPressed: () {
+                  setState(() {
+                    _expanded = !_expanded;
+                  });
+                },
               ),
             ),
-            subtitle: Text(
-              DateFormat('dd/MM/yyyy   hh:mm').format(widget.order.dateTime),
-              style: const TextStyle(fontSize: 12),
-            ),
-            trailing: IconButton(
-              icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more),
-              onPressed: () {
-                setState(() {
-                  _expanded = !_expanded;
-                });
-              },
-            ),
-          ),
-          if (_expanded)
-            Container(
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 15),
-              height: min(widget.order.products.length * 20.0 + 25, 100),
+              height: _expanded
+                  ? min(widget.order.products.length * 20.0 + 20, 100)
+                  : 0,
               child: ListView(
                 children: widget.order.products
                     .map(
@@ -57,12 +65,12 @@ class _OrderItemState extends State<OrderItem> {
                           Text(
                             prod.title,
                             style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                                fontSize: 17, fontWeight: FontWeight.bold),
                           ),
                           Text(
                             '${prod.quantity} kg  x  \$${prod.price}',
                             style: const TextStyle(
-                                color: Colors.grey, fontSize: 18),
+                                color: Colors.grey, fontSize: 17),
                           ),
                         ],
                       ),
@@ -70,7 +78,8 @@ class _OrderItemState extends State<OrderItem> {
                     .toList(),
               ),
             ),
-        ],
+          ],
+        ),
       ),
     );
   }
