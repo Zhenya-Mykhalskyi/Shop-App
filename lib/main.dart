@@ -15,6 +15,7 @@ import '../screens/edit_proruct_screen.dart';
 import '../screens/auth_screen.dart';
 import '../providers/auth.dart';
 import '../screens/splash_screen.dart';
+import './helpers/custom_route.dart';
 
 void main() => runApp(const MyApp());
 
@@ -45,6 +46,10 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Shop',
           theme: ThemeData(
+            pageTransitionsTheme: PageTransitionsTheme(builders: {
+              TargetPlatform.android: CustomPageTransitionBuilder(),
+              TargetPlatform.iOS: CustomPageTransitionBuilder(),
+            }),
             fontFamily: 'Lato',
             colorScheme:
                 ColorScheme.fromSwatch(primarySwatch: Colors.lightGreen)
