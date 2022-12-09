@@ -39,6 +39,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         builder: (ctx, dataSnapshot) {
           if (dataSnapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
+            //якщо future ще не прийшло, то виводимо CircularProgressIndicator
           } else {
             if (dataSnapshot.error != null) {
               //Do error headling staff
@@ -46,6 +47,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 child: Text('An error occurred'),
               );
             } else {
+              //якщо вернулось future і нема помилок
               return Consumer<Orders>(
                 builder: (ctx, orderData, child) => ListView.builder(
                   itemCount: orderData.orders.length,

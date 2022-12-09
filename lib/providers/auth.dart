@@ -45,17 +45,18 @@ class Auth with ChangeNotifier {
           },
         ),
       );
-      final responseData = json.decode(response.body); //
+      final responseData = json.decode(response.body);
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);
       }
-      // якщо нема ошибки створюэмо токен
+      // якщо нема помилки створюємо токен
       _token = responseData['idToken'];
       _userId = responseData['localId'];
       _expiryDate = DateTime.now()
           .add(Duration(seconds: int.parse(responseData['expiresIn'])));
       _autoLogout(); // з моменту авторизацції запускається відлік автовиходу
       notifyListeners();
+
       final prefs = await SharedPreferences.getInstance();
       final userData = json.encode(
         {
