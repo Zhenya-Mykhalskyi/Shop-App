@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
                     .copyWith(secondary: Colors.green),
           ),
           home: auth.isAuth
-              ? ProductsOverviewScreen()
+              ? const ProductsOverviewScreen()
               : FutureBuilder(
                   future: auth.tryAutoLogin(),
                   builder: (ctx, authResultSnapshot) =>
